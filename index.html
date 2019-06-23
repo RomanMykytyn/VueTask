@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TestTask</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+      <template v-if='isAuthenticated'>
+        <nav>
+          <ul class="nav">
+            <li ><span>Hello, {{username}}.</span></li>
+            <li id='exit'><span v-on:click="exit">Exit</span></li>
+          </ul>
+        </nav>
+        <app-user v-for="value in listUsers"
+                  v-bind:key="value.id"
+                  v-bind:user="value"
+        ></app-user>
+      </template>
+      <div v-else>
+        <form action="https://cloud-ua1.webitel.com/engine/login/" method="POST" onsubmit="submitForm(event)">
+          <div class='box'>
+            <h1>Welcome!</h1>
+            <h3>Please, sign in.</h3>
+            <template v-if='message'><p>Wrong e-mail or(and) password!</p></template>
+            <input class="login" type="email" name="username" placeholder="E-mail" required><br><br>
+            <input class="password" type="password" name="password"  placeholder="Password" required><br><br>
+            <input type="submit" value="Enter" name="type_button" class="btn">
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
